@@ -1,0 +1,119 @@
+{
+	"root": {
+		"projects": {
+			"xlobowww": {
+				"name": "xlobowww",
+				"url": "http://localhost:5000"
+			}
+		},
+		"devSrc": "./staticFiles",
+		"distSrc": "./dist"
+	},
+	"tasksGroup": {
+		"assetTasks": ["fonts", "iconFont", "images", "svgSprite"],
+		"codeTasks": ["css", "js", "html"]
+	},
+	"tasks": {
+		"browserSync": {
+			"server": {
+				"baseDir": "./"
+			},
+			"port": 8881,
+			"reloadDelay": 500,
+			"serveStatic": ["dist"],
+			"startPath": "./views",
+			"enable": true
+		},
+		"zip": {
+			"devSrc": "",
+			"distSrc": "zip",
+			"enable": false
+		},
+		"html": {
+			"devSrc": "tpl",
+			"distSrc": "views/x",
+			"dataFile": "data/global.json",
+			"htmlmin": {
+				"collapseWhitespace": true
+			},
+			"extensions": ["html", "json", "hbs"],
+			"excludeFolders": ["layouts", "shared", "macros", "data"],
+			"enable": true
+		},
+		"js": {
+			"devSrc": "js",
+			"distSrc": "js",
+			"extensions": ["js", "json"],
+			"babel": {
+				"presets": ["es2015", "stage-1"],
+				"plugins": []
+			},
+			"extractSharedJs": false,
+			"enable": true
+		},
+		"css": {
+			"devSrc": "scss",
+			"distSrc": "css",
+			"extensions": ["sass", "scss", "css"],
+			"autoprefixer": {
+				"browsers": [
+					"last 2 versions",
+					"safari 5",
+					"ie 8",
+					"ie 9",
+					"opera 12.1",
+					"ios 6",
+					"android 4"
+				]
+			},
+			"sass": {
+				"indentedSyntax": true,
+				"includePaths": [
+					"./node_modules/normalize.css"
+				]
+			},
+			"enable": true
+		},
+		"images": {
+			"devSrc": "images",
+			"distSrc": "images",
+			"extensions": ["jpg", "png", "gif", "svg"],
+			"enable": true
+		},
+		"sprites": {
+			"devSrc": "sprites",
+			"distSrc": "sprites",
+			"category": [
+				"base", "home"
+			],
+			"spritesmith": {
+				"retinaSrcFilter": ["sprite/**/*@2x.png"],
+				"retinaImgName": "sprite@2x.png"
+			},
+			"extensions": ["png"],
+			"enable": true
+		},
+		"fonts": {
+			"devSrc": "fonts",
+			"distSrc": "fonts",
+			"extensions": ["woff2", "woff", "eot", "ttf", "svg"],
+			"enable": true
+		},
+		"iconFont": {
+			"devSrc": "icons",
+			"distSrc": "fonts",
+			"sassDest": "generated",
+			"extensions": ["woff2", "woff", "eot", "ttf", "svg"],
+			"enable": true
+		},
+		"svgSprite": {
+			"devSrc": "icons",
+			"distSrc": "images",
+			"extensions": ["svg"],
+			"enable": true
+		},
+		"production": {
+			"rev": true
+		}
+	}
+}
