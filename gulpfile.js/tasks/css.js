@@ -16,7 +16,7 @@ var paths = {
   distSrc: path.join(config.root.distSrc, config.tasks.css.distSrc)
 };
 
-var cssTask = function() {
+var cssTask = () => {
 	return gulp.src(paths.devSrc)
 		.pipe(gulpif(!global.production, sourcemaps.init()))
 		.pipe(sass(config.tasks.css.sass))

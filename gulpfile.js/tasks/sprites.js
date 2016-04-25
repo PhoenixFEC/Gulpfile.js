@@ -1,5 +1,5 @@
 var config = require('../config');
-if(!config.tasks.sprites || !config.tasks.sprites.enable) return;
+if(!config.tasks.sprites) return;
 
 var gulp = require('gulp');
 var gulpif = require('gulp-if');
