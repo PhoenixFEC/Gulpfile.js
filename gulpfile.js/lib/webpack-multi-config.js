@@ -23,9 +23,9 @@ module.exports = function(env) {
   var webpackConfig = {
     context: jsSrc,
     plugins: [
-      new webpack.ResolverPlugin([
-        new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
-      ])
+      // new webpack.ResolverPlugin([
+      //   new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
+      // ])
     ],
     resolve: {
       root: jsSrc,
@@ -36,8 +36,8 @@ module.exports = function(env) {
     },
     module: {
       loaders: [
-        // {test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/, query: config.tasks.js.babel },
-        // {test: /\.jsx$/,   loader: 'jsx'},
+        {test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/, query: config.tasks.js.babel },
+        {test: /\.jsx$/,   loader: 'jsx'}
         // {test: /\.html$/,   loader: 'html'},
         // {test: /\.json$/,   loader: 'json'},
         // {test: /\.css$/,    loader: 'style!css!autoprefixer'},

@@ -9,4 +9,3 @@ var cleanTask = function(cb) {
 }
 
 gulp.task('clean', cleanTask);
-module.exports = cleanTask;

@@ -1,7 +1,6 @@
 var config = require('../config');
 var gulp   = require('gulp');
 var zip    = require('gulp-zip');
-var del    = require('del');
 var path   = require('path');
 
 var paths = {

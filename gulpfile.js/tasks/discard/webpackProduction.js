@@ -1,22 +1,22 @@
 var config  = require('../config');
 if(!config.tasks.js) return;
 
-/*var config  = require('../lib/webpack-multi-config')('production');
+var webpackConfig  = require('../lib/webpack-multi-config')('production');
 var logger  = require('../lib/compileLogger');
 var gulp    = require('gulp');
 var webpack = require('webpack');
 
 var webpackProductionTask = function(cb) {
-	webpack(config, function(err, stats) {
+	webpack(webpackConfig, function(err, stats) {
 		logger(err, stats);
 		cb();
 	})
-};*/
+};
 
 
-var gulp          = require('gulp');
+// var gulp          = require('gulp');
 var sourcemaps    = require('gulp-sourcemaps');
-var webpack       = require('webpack');
+// var webpack       = require('webpack');
 var webpackStream = require('webpack-stream');
 var named         = require('vinyl-named');
 var through       = require('through2');
@@ -37,7 +37,7 @@ var extensions = config.tasks.js.extensions.map(function(extension) {
 
 var webpackConfig = {
 	entry: {
-		index: [path.resolve(__dirname, '../../staticFiles/js/app.js')]
+		page1: [path.resolve(__dirname, '../../staticFiles/js/page1.js')]
 	},
 	output: {
 		path: path.normalize(paths.distSrc),
@@ -60,8 +60,8 @@ var webpackConfig = {
 	},
 	module: {
 	  loaders: [
-	    // {test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/, query: config.tasks.js.babel },
-	    // {test: /\.jsx$/,   loader: 'jsx'},
+	    {test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/, query: config.tasks.js.babel },
+	    {test: /\.jsx$/,   loader: 'jsx'},
 	    // {test: /\.html$/,   loader: 'html'},
 	    // {test: /\.json$/,   loader: 'json'},
 	    // {test: /\.css$/,    loader: 'style!css!autoprefixer'},

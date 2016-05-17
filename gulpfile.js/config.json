@@ -6,11 +6,11 @@
 				"url": "http://localhost:5000"
 			}
 		},
-		"devSrc": "./staticFiles",
-		"distSrc": "./dist"
+		"devSrc": "staticFiles",
+		"distSrc": "dist"
 	},
 	"tasksGroup": {
-		"assetTasks": ["fonts", "iconFont", "images", "svgSprite"],
+		"assetTasks": ["fonts", "images", "svgSprite"],
 		"codeTasks": ["css", "js", "html"]
 	},
 	"tasks": {
@@ -21,17 +21,17 @@
 			"port": 8881,
 			"reloadDelay": 500,
 			"serveStatic": ["dist"],
-			"startPath": "./views",
+			"startPath": "./dist/html",
 			"enable": true
 		},
 		"zip": {
 			"devSrc": "",
 			"distSrc": "zip",
-			"enable": false
+			"enable": true
 		},
 		"html": {
 			"devSrc": "tpl",
-			"distSrc": "views/x",
+			"distSrc": "html",
 			"dataFile": "data/global.json",
 			"htmlmin": {
 				"collapseWhitespace": true
@@ -43,12 +43,9 @@
 		"js": {
 			"devSrc": "js",
 			"distSrc": "js",
-			"extensions": ["js", "json"],
-			"babel": {
-				"presets": ["es2015", "stage-1"],
-				"plugins": []
-			},
+			"extensions": ["js", "jsx", "json"],
 			"extractSharedJs": false,
+			"webpackEnable": true,
 			"enable": true
 		},
 		"css": {

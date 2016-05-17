@@ -11,11 +11,10 @@ var watchTask = function() {
     if(task) {
       var glob = path.join(config.root.devSrc, task.devSrc, '**/*.{' + task.extensions.join(',') + '}')
       watch(glob, function() {
-       require('./' + taskName)()
+          require('./' + taskName)()
       })
     }
   })
 }
 
 gulp.task('watch', ['browserSync'], watchTask)
-module.exports = watchTask

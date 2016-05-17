@@ -5,4 +5,4 @@
  *    when you run `gulp`.
  */
 var requireDir = require('require-dir');
-requireDir('./tasks', { recurse: true });
+requireDir('./tasks');
