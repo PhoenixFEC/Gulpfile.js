@@ -16,7 +16,8 @@ var paths = {
 }
 
 var spritesTask = function() {
-  var spriteData = gulp.src(paths.devSrc).pipe(spritesmith({
+  var spriteData = gulp.src(paths.devSrc)
+    .pipe(spritesmith({
     imgName: 'sprite.png',
     cssName: 'sprite.css',
     padding: 1

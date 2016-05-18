@@ -27,7 +27,7 @@ var webpackConfig = function(env) {
       // noParse: ['react', 'react-dom'],
       loaders: [
         // {test://, include:[], exclude:[], loaders:[]}
-        {test: /\.js$/, loader: 'babel', exclude: /(node_modules|bower_components)/},
+        // {test: /\.js$/, loader: 'babel', exclude: /(node_modules|bower_components)/},
         {test: /\.jsx?$/, loader: 'babel', exclude: /(node_modules|bower_components)/},
         {test: /\.html$/,   loaders: ['dom', 'html']},
         {test: /\.json$/,   loader: 'json'}
@@ -61,9 +61,10 @@ var webpackConfig = function(env) {
   if(env === 'production') {
     var addPlugins = [
       new webpack.optimize.OccurenceOrderPlugin(),
+      // config NODE_ENV to disable react-transform-hrm
       new webpack.DefinePlugin({
         'process.env': {
-          'NODE_ENV': JSON.stringify('production')
+          NODE_ENV: JSON.stringify('production')
         }
       }),
       //js文件的压缩
@@ -71,8 +72,7 @@ var webpackConfig = function(env) {
         compressor: {
           warnings: false
         }
-      }),
-      new webpack.NoErrorsPlugin()
+      })
     ];
     addPlugins.forEach(function(item, i) {
       wpConfig.plugins.push(item);
@@ -108,6 +108,7 @@ var webpackConfig = function(env) {
       progress: true
     };
   }
+
   return wpConfig;
 };
 
