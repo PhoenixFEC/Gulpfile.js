@@ -13,8 +13,9 @@ var productionTask = function(cb) {
 	             ['sprites', 'fonts', 'images', 'svgSprite'],
 	             ['css', 'html'],
 	             jstask,
-	             config.tasks.production.rev ? 'rev': false,
-	             zip, cb);
+	             'rev',
+	             // zip,
+	             'server', cb);
 }
 
 gulp.task('production', productionTask)

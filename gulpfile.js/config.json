@@ -108,9 +108,6 @@
 			"distSrc": "images",
 			"extensions": ["svg"],
 			"enable": true
-		},
-		"production": {
-			"rev": true
 		}
 	}
 }

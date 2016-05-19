@@ -9,16 +9,15 @@ var path     = require('path')
 
 var settings = {
   root: path.resolve(process.cwd(), config.root.distSrc),
-  port: process.env.PORT || 5000,
+  port: process.env.PORT || 5200,
   logLevel: process.env.NODE_ENV ? 'production' : 'dev',
   staticOptions: {
     extensions: ['html', 'hbs'],
     maxAge: '31556926'
   }
 }
-console.log(settings.root)
 var serverTask = function() {
-  var url = 'http://localhost:' + settings.port + '/html';
+  var url = 'http://localhost:' + settings.port + '/html/';
 
   express()
     .use(compress())

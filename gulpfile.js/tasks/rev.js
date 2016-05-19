@@ -1,6 +1,3 @@
-var config = require('../config')
-if(!config.tasks.production.rev) return
-
 var gulp         = require('gulp')
 var gutil        = require('gulp-util')
 var gulpSequence = require('gulp-sequence')

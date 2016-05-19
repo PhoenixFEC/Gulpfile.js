@@ -1,0 +1,45 @@
+{
+  "presets": ["react", "es2015"],
+  "env": {
+    // this plugin will be included only in development mode, e.g.
+    // if NODE_ENV (or BABEL_ENV) environment variable is not set
+    // or is equal to "development"
+    "development": {
+    	"presets": ["react-hmre"],
+      "plugins": [["react-transform", {
+        "transforms": [{
+          "transform": "react-transform-hmr",
+          // if you use React Native, pass "react-native" instead:
+          "imports": ["react", "react-dom"],
+          // this is important for Webpack HMR:
+          "locals": ["module"]
+        }]
+        // note: you can put more transforms into array
+        // this is just one of them!
+      }]]
+      // "plugins": [
+      //   // must be an array with options object as second item
+      //   ["react-transform", {
+      //     // must be an array of objects
+      //     "transforms": [{
+      //       // can be an NPM module name or a local path
+      //       "transform": "react-transform-hmr",
+      //       // see transform docs for "imports" and "locals" dependencies
+      //       "imports": ["react", "react-dom"],
+      //       "locals": ["module"]
+      //     }, {
+      //       // you can have many transforms, not just one
+      //       "transform": "react-transform-catch-errors",
+      //       "imports": ["react", "react-dom", "redbox-react"]
+      //     }, {
+      //       // can be an NPM module name or a local path
+      //       // "transform": "./src/my-custom-transform"
+      //     }]
+      //     // by default we only look for `React.createClass` (and ES6 classes)
+      //     // but you can tell the plugin to look for different component factories:
+      //     // factoryMethods: ["React.createClass", "createClass"]
+      //   }]
+      // ]
+    }
+  }
+}

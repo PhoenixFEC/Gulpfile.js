@@ -10,27 +10,52 @@ var paths = {
 };
 
 var webpackConfig = function(env) {
+  var jsxLoaders;
+  if(env === 'production') {
+    jsxLoaders = {test: /\.jsx?$/, loader: "babel", exclude: /(node_modules|bower_components)/,
+          query: {
+            "presets": ["react", "es2015"]
+          }
+        };
+  } else {
+    jsxLoaders = {test: /\.jsx?$/, loader: "babel", exclude: /(node_modules|bower_components)/,
+          query: {
+            "presets": ["react", "es2015", "react-hmre"],
+            "plugins": [["react-transform", {
+              "transforms": [{
+                "transform": "react-transform-hmr",
+                // if you use React Native, pass "react-native" instead:
+                "imports": ["react", "react-dom"],
+                // this is important for Webpack HMR:
+                "locals": ["module"]
+              }]
+              // note: you can put more transforms into array
+              // this is just one of them!
+            }]]
+          }
+        };
+  }
   var wpConfig = {
     // watch: true,
     entry: {
-      page1: [path.join(paths.devSrc, 'js/page1.jsx')]
+      app: [path.join(paths.devSrc, 'js/index.jsx')]
     },
     output: {
       filename: '[name].js',
       chunkFilename: '[id].js',
       path: path.resolve(paths.distSrc, './js'),
-      publicPath: path.resolve('dist/js')
+      publicPath: path.resolve(paths.distSrc, './js')
+      // publicPath: env === 'production' ? 'http://static.xlobo.com/' : path.resolve(paths.distSrc, './js')
     },
     // context: path.join('staticFiles')
-    devtool: 'source-map',
     module: {
       // noParse: ['react', 'react-dom'],
       loaders: [
         // {test://, include:[], exclude:[], loaders:[]}
-        // {test: /\.js$/, loader: 'babel', exclude: /(node_modules|bower_components)/},
-        {test: /\.jsx?$/, loader: 'babel', exclude: /(node_modules|bower_components)/},
-        {test: /\.html$/,   loaders: ['dom', 'html']},
-        {test: /\.json$/,   loader: 'json'}
+        jsxLoaders
+        // {test: /\.jsx?$/, loader: 'babel', exclude: /(node_modules|bower_components)/}
+        // {test: /\.html$/,   loaders: ['dom', 'html']},
+        // {test: /\.json$/,   loader: 'json'}
         // {test: /\.css$/,    loader: 'style!css!autoprefixer'},
         // {test: /\.scss$/,   loader: 'style!css!autoprefixer!sass'},
         // {test: /\.woff$/,   loader: "url?limit=10000&minetype=application/font-woff"},
@@ -45,6 +70,11 @@ var webpackConfig = function(env) {
       extensions: ['', '.js', '.jsx', '.html', '.css'],
       externals: [],
       alias: {
+        'react': 'react/dist/react.min.js',
+        'react-dom': 'react-dom/dist/react-dom.min.js',
+        'react-dom-server': 'react-dom/dist/react-dom-server.min.js',
+        'react-with-addons': 'react/dist/react-with-addons.min.js',
+        'jquery': path.resolve(paths.devSrc, 'lib/jquery/1.8.3/jquery.min.js')
       }
     },
     resolveLoader: {
@@ -59,14 +89,15 @@ var webpackConfig = function(env) {
 
   // Any configrator in production
   if(env === 'production') {
+    wpConfig.devtool = 'cheap-source-map';
     var addPlugins = [
       new webpack.optimize.OccurenceOrderPlugin(),
       // config NODE_ENV to disable react-transform-hrm
-      new webpack.DefinePlugin({
-        'process.env': {
-          NODE_ENV: JSON.stringify('production')
-        }
-      }),
+      // new webpack.DefinePlugin({
+      //   'process.env': {
+      //     NODE_ENV: JSON.stringify('production')
+      //   }
+      // }),
       //js文件的压缩
       new webpack.optimize.UglifyJsPlugin({
         compressor: {
@@ -76,11 +107,21 @@ var webpackConfig = function(env) {
     ];
     addPlugins.forEach(function(item, i) {
       wpConfig.plugins.push(item);
-    })
+    });
   }
 
   // Any configrator in production
   if(env === 'development') {
+
+    // wpConfig.watch = true;
+    wpConfig.devtool = 'cheap-module-eval-source-map';
+    wpConfig.devServer = {
+      historyApiFallack: true,
+      hot: true,
+      inline: true,
+      progress: true
+    };
+
     for (var key in wpConfig.entry) {
       var entry = wpConfig.entry[key]
       wpConfig.entry[key] = [
@@ -98,17 +139,7 @@ var webpackConfig = function(env) {
       wpConfig.plugins.push(item);
     })
 
-    // wpConfig.watch = true;
-    // devtool: 'inline-source-map'
-    wpConfig.devtool = 'cheap-module-eval-source-map';
-    wpConfig.devServer = {
-      historyApiFallack: true,
-      hot: true,
-      inline: true,
-      progress: true
-    };
   }
-
   return wpConfig;
 };
 
