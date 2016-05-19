@@ -8,12 +8,13 @@ var revNapkin = require('gulp-rev-napkin');
 gulp.task('rev-assets', function() {
   // Ignore files that may reference assets. We'll rev them next.
   var ignoreThese = '!' + path.join(config.root.distSrc,'/**/*.{css, js, json, html}');
+  var ignoreJs = '!' + path.join(config.root.distSrc, config.tasks.js.distSrc, '**');
   var ignoreTpl = '!' + path.join(config.root.distSrc, config.tasks.html.distSrc, '**');
 
-  return gulp.src([path.join(config.root.distSrc,'/**/*'), ignoreThese, ignoreTpl])
+  return gulp.src([path.join(config.root.distSrc,'/**/*'), ignoreThese, ignoreJs, ignoreTpl])
     .pipe(rev())
     .pipe(gulp.dest(config.root.distSrc))
-    .pipe(revNapkin({verbose: false}))
+    .pipe(revNapkin({verbose: true}))
     .pipe(rev.manifest(path.join(config.root.distSrc, 'rev-manifest.json'), {merge: true}))
     .pipe(gulp.dest(''))
 })

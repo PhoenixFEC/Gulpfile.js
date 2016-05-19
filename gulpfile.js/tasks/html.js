@@ -16,16 +16,16 @@ var paths = {
   distSrc: path.join(config.root.distSrc, config.tasks.html.distSrc),
 }
 
-var razorReplace = function() {
-  return through2.obj(function(chunk, encoding, cb) {
-    var newContents = chunk.contents.toString().replace(/{{@Html\.Partial\(('[^']+'|"[^"]+")\)}}/g, function(a, b) {
-      var fullPath = (chunk.base + b).replace(new RegExp('\'', 'g'), '');
-      return fs.readFileSync(fullPath);
-    });
-    chunk.contents = new Buffer(newContents);
-    cb(null, chunk);
-  })
-};
+// var razorReplace = function() {
+//   return through2.obj(function(chunk, encoding, cb) {
+//     var newContents = chunk.contents.toString().replace(/{{@Html\.Partial\(('[^']+'|"[^"]+")\)}}/g, function(a, b) {
+//       var fullPath = (chunk.base + b).replace(new RegExp('\'', 'g'), '');
+//       return fs.readFileSync(fullPath);
+//     });
+//     chunk.contents = new Buffer(newContents);
+//     cb(null, chunk);
+//   })
+// };
 
 
 var htmlTask = function() {

@@ -38,24 +38,24 @@ var webpackConfig = function(env) {
   var wpConfig = {
     // watch: true,
     entry: {
-      app: [path.join(paths.devSrc, 'js/index.jsx')]
+      'wp/app': [path.join(paths.devSrc, 'js/index.jsx')]
     },
     output: {
       filename: '[name].js',
-      chunkFilename: '[id].js',
+      chunkFilename: '[id]-[hash].js',
       path: path.resolve(paths.distSrc, './js'),
-      publicPath: path.resolve(paths.distSrc, './js')
-      // publicPath: env === 'production' ? 'http://static.xlobo.com/' : path.resolve(paths.distSrc, './js')
+      // publicPath: path.resolve(paths.distSrc, './js')
+      publicPath: env === 'production' ? 'http://static.xlobo.com/' : path.resolve(paths.distSrc, './js')
     },
     // context: path.join('staticFiles')
     module: {
       // noParse: ['react', 'react-dom'],
       loaders: [
         // {test://, include:[], exclude:[], loaders:[]}
-        jsxLoaders
+        jsxLoaders,
         // {test: /\.jsx?$/, loader: 'babel', exclude: /(node_modules|bower_components)/}
         // {test: /\.html$/,   loaders: ['dom', 'html']},
-        // {test: /\.json$/,   loader: 'json'}
+        {test: /\.json$/,   loader: 'json'}
         // {test: /\.css$/,    loader: 'style!css!autoprefixer'},
         // {test: /\.scss$/,   loader: 'style!css!autoprefixer!sass'},
         // {test: /\.woff$/,   loader: "url?limit=10000&minetype=application/font-woff"},
@@ -83,7 +83,13 @@ var webpackConfig = function(env) {
 
     plugins: [
       //将公共代码抽离出来合并为一个文件
-      new CommonsChunkPlugin('common.js')
+      new CommonsChunkPlugin({
+        name: ['commons'],
+        filename: 'wp/common.js',
+        children: true,
+        // async: true,
+        minChunks: Infinity
+      })
     ]
   };
 

@@ -5,6 +5,7 @@ var gulpSequence = require('gulp-sequence')
 require('./rev/rev-assets')
 require('./rev/rev-update-references')
 require('./rev/rev-css')
+require('./rev/rev-js')
 require('./rev/update-html')
 
 // If you are familiar with Rails, this task the equivalent of `rake assets:precompile`
@@ -15,7 +16,7 @@ var revTask = function(cb) {
     // 2) Update asset references (images, fonts, etc) with reved filenames in compiled css + js
     'rev-update-references',
     // 3) Rev and compress CSS and JS files (this is done after assets, so that if a referenced asset hash changes, the parent hash will change as well
-    'rev-css',
+    'rev-css', 'rev-js',
     // 4) Update asset references in HTML
     'update-html',
   cb)
