@@ -1,27 +1,30 @@
 if(global.production) return
 
-var gulp              = require('gulp')
-var browserSync       = require('browser-sync')
-var config            = require('../config')
-var webpack           = require('webpack')
-var webpackDevMiddleware = require('webpack-dev-middleware')
-var webpackHotMiddleware = require('webpack-hot-middleware')
+var gulp                 = require('gulp');
+var browserSync          = require('browser-sync');
+var path                 = require('path');
+var config               = require('../config');
+var webpack              = require('webpack');
+var webpackDevMiddleware = require('webpack-dev-middleware');
+var webpackHotMiddleware = require('webpack-hot-middleware');
 
 var browserSyncTask = function() {
 
-  var webpackConfig = require('./webpack/webpack-config')('development');
+  // var webpackConfig = require('./webpack/webpack-config');
+  var webpackConfig = require('../../webpack-config');
   var compiler = webpack(webpackConfig);
 
-  var server = config.tasks.browserSync.server;
+  var bsConfig = config.tasks.browserSync;
+  var server = bsConfig.server;
   server.middleware = [
-    webpackDevMiddleware(compiler, {
-      noInfo: true,
-      stats: { colors: true },
-      publicPath: webpackConfig.output.publicPath
-    }),
+    webpackDevMiddleware(compiler, webpackConfig.devServer),
     webpackHotMiddleware(compiler)
-  ]
-  browserSync.init(config.tasks.browserSync)
-}
+  ];
 
-gulp.task('browserSync', browserSyncTask)
+  bsConfig.serveStatic = [path.join(config.root.distAssetsDir)];
+  bsConfig.startPath = path.join(config.tasks.html.distSrc);
+
+  browserSync.init(bsConfig);
+};
+
+gulp.task('browserSync', browserSyncTask);

@@ -1,5 +1,5 @@
 var config      = require('../config')
-if(!config.tasks.svgSprite || !config.tasks.svgSprite.enable) return
+if(!config.tasks.svgSprite) return
 
 var browserSync = require('browser-sync')
 var path        = require('path')
@@ -9,15 +9,16 @@ var svgstore    = require('gulp-svgstore')
 
 var svgSpriteTask = function() {
 
-  var settings = {
-    devSrc: path.join(config.root.devSrc, config.tasks.svgSprite.devSrc, '/*.svg'),
-    distSrc: path.join(config.root.distSrc, config.tasks.svgSprite.distSrc)
+  var paths = {
+    devSrc: path.join(config.root.devSrcDir, config.root.devAssetsDir, config.tasks.svgSprite.devSrc, '/*.svg'),
+    distSrc: path.join(config.root.distSrcDir, config.root.distAssetsDir, config.tasks.svgSprite.distSrc)
   }
 
-  return gulp.src(settings.devSrc)
+
+  return gulp.src(paths.devSrc)
     .pipe(imagemin())
     .pipe(svgstore())
-    .pipe(gulp.dest(settings.distSrc))
+    .pipe(gulp.dest(paths.distSrc))
     .pipe(browserSync.stream())
 }
 

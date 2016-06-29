@@ -8,14 +8,14 @@ var handleErrors     = require('../../lib/handleErrors');
 var path             = require('path');
 var url              = require('url');
 
-var fontPath         = path.join(config.root.distSrc, config.tasks.iconFont.distSrc);
-var cssPath          = path.join(config.root.distSrc, config.tasks.css.distSrc);
+var fontPath         = path.join(config.root.distSrcDir, config.tasks.iconFont.distSrc);
+var cssPath          = path.join(config.root.distSrcDir, config.root.distAssetsDir, config.tasks.css.distSrc);
 
 var settings = {
   name: 'xlobo icons',
-  devSrc: path.join(config.root.devSrc, config.tasks.iconFont.devSrc, '/*.svg'),
-  distSrc: path.join(config.root.distSrc, config.tasks.iconFont.distSrc),
-  sassDest: path.join(config.root.devSrc, config.tasks.css.devSrc, config.tasks.iconFont.sassDest),
+  devSrc: path.join(config.root.devSrcDir, config.tasks.iconFont.devSrc, '/*.svg'),
+  distSrc: path.join(config.root.distSrcDir, config.root.distAssetsDir, config.tasks.iconFont.distSrc),
+  sassDest: path.join(config.root.devSrcDir, config.tasks.css.devSrc, config.tasks.iconFont.sassDest),
   template: path.normalize('./gulpfile.js/tasks/iconFont/template.sass'),
   sassOutputName: '_icons.sass',
   fontPath: url.resolve('.',path.relative(cssPath, fontPath)),

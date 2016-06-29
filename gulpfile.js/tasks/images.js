@@ -1,5 +1,5 @@
 var config   = require('../config');
-if(!config.tasks.images || !config.tasks.images.enable) return;
+if(!config.tasks.images) return;
 
 var path     = require('path');
 var gulp     = require('gulp');
@@ -9,13 +9,13 @@ var changed  = require('gulp-changed');
 var bs       = require('browser-sync');
 
 var paths = {
-	devSrc: path.join(config.root.devSrc, config.tasks.images.devSrc, '**/*.{' + config.tasks.images.extensions + '}'),
-	distSrc: path.join(config.root.distSrc, config.tasks.images.distSrc),
-	sassIncludeImg: path.join(config.root.devSrc, config.tasks.css.devSrc, '**/img/**/*.{' + config.tasks.images.extensions + '}'),
-	sassIncludeImgDist: path.join(config.root.distSrc, config.tasks.css.distSrc),
-	jsIncludeImg: path.join(config.root.devSrc, config.tasks.js.devSrc, '**/img/**/*.{' + config.tasks.images.extensions + '}'),
-	jsIncludeImgDist: path.join(config.root.distSrc, config.tasks.js.distSrc)
-}
+	devSrc: path.join(config.root.devSrcDir, config.root.devAssetsDir, config.tasks.images.devSrc, '**/*.{' + config.tasks.images.extensions + '}'),
+	distSrc: path.join(config.root.distSrcDir, config.root.distAssetsDir, config.tasks.images.distSrc),
+	sassIncludeImg: path.join(config.root.devSrcDir, config.root.devAssetsDir, config.tasks.css.devSrc, '**/img/**/*.{' + config.tasks.images.extensions + '}'),
+	sassIncludeImgDist: path.join(config.root.distSrcDir, config.root.distAssetsDir, config.tasks.css.distSrc),
+	jsIncludeImg: path.join(config.root.devSrcDir, config.root.devAssetsDir, config.tasks.js.devSrc, '**/img/**/*.{' + config.tasks.images.extensions + '}'),
+	jsIncludeImgDist: path.join(config.root.distSrcDir, config.root.distAssetsDir, config.tasks.js.distSrc)
+};
 
 var imagesTask = function() {
 	gulp.src(paths.devSrc)
@@ -46,7 +46,7 @@ var imagesTask = function() {
 	    }))
 		.pipe(gulp.dest(paths.jsIncludeImgDist))
 		.pipe(bs.stream());
-}
+};
 
 gulp.task('images', imagesTask);
 module.exports = imagesTask;

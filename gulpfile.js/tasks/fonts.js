@@ -1,5 +1,5 @@
 var config = require('../config');
-if(!config.tasks.fonts || !config.tasks.fonts.enable) return;
+if(!config.tasks.fonts) return;
 
 var path    = require('path');
 var gulp    = require('gulp');
@@ -7,8 +7,8 @@ var changed = require('gulp-changed');
 var bs      = require('browser-sync');
 
 var paths = {
-	devSrc: path.join(config.root.devSrc, config.tasks.fonts.devSrc, '**/*.{' + config.tasks.fonts.extensions + '}'),
-	distSrc: path.join(config.root.distSrc, config.tasks.fonts.distSrc)
+  devSrc: path.join(config.root.devSrcDir, config.root.devAssetsDir, config.tasks.fonts.devSrc, '/**/*.{' + config.tasks.fonts.extensions + '}'),
+  distSrc: path.join(config.root.distSrcDir, config.root.distAssetsDir, config.tasks.fonts.distSrc)
 };
 
 var fontsTask = function() {

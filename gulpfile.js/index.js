@@ -1,8 +1,26 @@
-/**
- * gulpfile.js
- *    To add a new task, simply add a new task file that directory.
- *    gulpfile.js/tasks/default.js specifies the default set of tasks to run
- *    when you run `gulp`.
- */
-var requireDir = require('require-dir');
-requireDir('./tasks');
+
+
+require('./tasks/clean');
+
+require('./tasks/sprites');
+
+require('./tasks/fonts');
+require('./tasks/images');
+require('./tasks/svgSprite');
+
+require('./tasks/css');
+require('./tasks/js');
+require('./tasks/html');
+
+require('./tasks/webpack');
+
+require('./tasks/watch');
+
+require('./tasks/rev');
+// require('./tasks/zip');
+
+require('./tasks/browserSync');
+require('./tasks/server');
+
+require('./tasks/default');
+require('./tasks/production');

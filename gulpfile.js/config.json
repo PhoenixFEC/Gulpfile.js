@@ -1,13 +1,15 @@
 {
 	"root": {
-		"projects": {
-			"xlobowww": {
-				"name": "xlobowww",
-				"url": "http://localhost:5000"
-			}
-		},
-		"devSrc": "staticFiles",
-		"distSrc": "dist"
+		"projectName": "PhoenixFEC",
+		"host": "localhost",
+		"port": 8888,
+		"devSrcDir": "devSources",
+		"devAssetsDir": "static",
+		"distSrcDir": "dist",
+		"distAssetsDir": "static",
+		"deployVersionDir": "v2",
+		"dataDir": "data",
+		"cdnPath": "http://cdn.domain.com/"
 	},
 	"tasksGroup": {
 		"assetTasks": ["fonts", "images", "svgSprite"],
@@ -16,13 +18,15 @@
 	"tasks": {
 		"browserSync": {
 			"server": {
-				"baseDir": "./"
+				"baseDir": "dist"
 			},
 			"port": 8881,
 			"reloadDelay": 500,
-			"serveStatic": ["dist"],
-			"startPath": "./dist/html",
-			"enable": true
+			"files": [
+				"devSources/**",
+				"!devSources/static/js/**",
+				"!devSources/lib/**"
+			]
 		},
 		"zip": {
 			"devSrc": "",
@@ -30,23 +34,20 @@
 			"enable": true
 		},
 		"html": {
-			"devSrc": "tpl",
+			"devSrc": "html",
 			"distSrc": "html",
-			"dataFile": "data/global.json",
 			"htmlmin": {
 				"collapseWhitespace": true
 			},
 			"extensions": ["html", "json", "hbs"],
-			"excludeFolders": ["layouts", "shared", "macros", "data"],
-			"enable": true
+			"excludeFolders": ["layouts", "shared", "data"]
 		},
 		"js": {
 			"devSrc": "js",
 			"distSrc": "js",
-			"extensions": ["js", "jsx", "json"],
+			"extensions": ["js", "jsx"],
 			"extractSharedJs": false,
-			"webpackEnable": true,
-			"enable": true
+			"webpackEnable": true
 		},
 		"css": {
 			"devSrc": "scss",
@@ -68,18 +69,17 @@
 				"includePaths": [
 					"./node_modules/normalize.css"
 				]
-			},
-			"enable": true
+			}
 		},
 		"images": {
 			"devSrc": "images",
 			"distSrc": "images",
-			"extensions": ["jpg", "png", "gif", "svg"],
-			"enable": true
+			"extensions": ["jpg", "png", "gif", "svg"]
 		},
 		"sprites": {
 			"devSrc": "sprites",
-			"distSrc": "sprites",
+			"imgDistSrc": "sprites",
+			"cssDistSrc": "scss/base",
 			"category": [
 				"base", "home"
 			],
@@ -87,27 +87,23 @@
 				"retinaSrcFilter": ["sprite/**/*@2x.png"],
 				"retinaImgName": "sprite@2x.png"
 			},
-			"extensions": ["png"],
-			"enable": true
+			"extensions": ["png"]
 		},
 		"fonts": {
 			"devSrc": "fonts",
 			"distSrc": "fonts",
-			"extensions": ["woff2", "woff", "eot", "ttf", "svg"],
-			"enable": true
+			"extensions": ["woff2", "woff", "eot", "ttf", "svg"]
 		},
 		"iconFont": {
 			"devSrc": "icons",
 			"distSrc": "fonts",
 			"sassDest": "generated",
-			"extensions": ["woff2", "woff", "eot", "ttf", "svg"],
-			"enable": true
+			"extensions": ["woff2", "woff", "eot", "ttf", "svg"]
 		},
 		"svgSprite": {
 			"devSrc": "icons",
 			"distSrc": "images",
-			"extensions": ["svg"],
-			"enable": true
+			"extensions": ["svg"]
 		}
 	}
 }
